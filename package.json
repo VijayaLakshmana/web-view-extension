@@ -50,6 +50,9 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "react-app": "file:/home/vijaymuthu/Desktop/React"
+    "@types/react": "^18.3.2",
+    "react": "^18.3.1",
+    "react-app": "file:/home/vijaymuthu/Desktop/React",
+    "react-dom": "^18.3.1"
   }
 }

@@ -3,7 +3,7 @@ function Welcome(){
     console.log("hello"); 
     return (
         <>
-            <h1>Welcome</h1>
+            <h1>Hello Welcome to aspire</h1>
         </>
     );
 }

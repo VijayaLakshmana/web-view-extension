@@ -4,6 +4,8 @@ import fs from 'fs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 // import Welcome from '../node_modules/react-app/src/welcome'
+// import Welcome from './welcome';
+import Welcome from 'react-app/src/welcome'
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "es-lint" is now active!');
 
@@ -18,22 +20,25 @@ export function activate(context: vscode.ExtensionContext) {
             }
         );
         
-        const bundlePath = path.join(context.extensionPath,'node_modules/react-app/out/welcome.js');
-        console.log(bundlePath);
+        // const bundlePath = path.join(context.extensionPath,'node_modules/react-app/out/welcome.js');
+        // console.log(bundlePath);
         // const scriptUri = vscode.Uri.file(bundlePath);
         // console.log(scriptUri,"hello");
-        // const fileContent = ReactDOMServer.renderToString(<Welcome/>);
-        const scriptUri = fs.readFileSync(bundlePath, 'utf-8');
+
+       
+        const fileContent = ReactDOMServer.renderToString(<Welcome/>);
+        // const scriptUri = fs.readFileSync(bundlePath, 'utf-8');
         // console.log(fileContent);
+        panel.webview.html=fileContent;
         // panel.webview.html=fileContent;
-        panel.webview.html = `
-        <html>
-        <body>
-            <div id="root"></div>
-            <script>${scriptUri}</script>
-        </body>
-        </html>
-    `;
+    //     panel.webview.html = `
+    //     <html>
+    //     <body>
+    //         <div id="root"></div>
+    //         <script>${scriptUri}</script>
+    //     </body>
+    //     </html>
+    // `;
     });
     context.subscriptions.push(disposable);
 
@@ -46,10 +51,9 @@ export function activate(context: vscode.ExtensionContext) {
                 enableScripts: true 
             }
         );
+        //bundle.js
         const bundlePath = path.join(context.extensionPath,'node_modules/react-app/dist/bundle.js');
         console.log(bundlePath);
-        // const scriptUri = vscode.Uri.file(bundlePath);
-        // console.log(scriptUri,"hello");
         const scriptUri = fs.readFileSync(bundlePath, 'utf-8');
         panel.webview.html = `
             <html>

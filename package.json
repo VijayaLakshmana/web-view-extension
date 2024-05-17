@@ -24,7 +24,11 @@
       {
         "command": "es-lint.hello",
         "title": "welcome"
-      }
+      },
+      {
+        "command": "extension.openBusApp",
+        "title": "start app"
+     }
     ]
   },
   "scripts": {

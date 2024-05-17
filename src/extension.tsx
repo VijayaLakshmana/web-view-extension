@@ -1,11 +1,13 @@
 import * as vscode from 'vscode';
 import path from 'path';
 import fs from 'fs';
+import { Webview } from 'vscode';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 // import Welcome from '../node_modules/react-app/src/welcome'
 // import Welcome from './welcome';
-import Welcome from 'react-app/src/welcome'
+// import Welcome from 'react-app/src/welcome'
+import { webview } from './webView';
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "es-lint" is now active!');
 
@@ -16,7 +18,8 @@ export function activate(context: vscode.ExtensionContext) {
             'HTML Preview',
             vscode.ViewColumn.One,
             {
-                enableScripts: true
+                enableScripts: true,
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'out'))]
             }
         );
         
@@ -26,10 +29,27 @@ export function activate(context: vscode.ExtensionContext) {
         // console.log(scriptUri,"hello");
 
        
-        const fileContent = ReactDOMServer.renderToString(<Welcome/>);
+        // const fileContent = ReactDOMServer.renderToString(<Welcome/>);
         // const scriptUri = fs.readFileSync(bundlePath, 'utf-8');
         // console.log(fileContent);
-        panel.webview.html=fileContent;
+        // panel.webview.html=`<!DOCTYPE html>
+        // <html lang="en">
+        // <head>
+        //     <meta charset="UTF-8">
+        //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        //     <title>My React Component</title>
+        // </head>
+        // <body>
+        //     <div id="root"></div>
+        //     <script>
+        //         const exports = {};
+        //         ${scriptUri}
+        //         const Welcome = exports.default;
+        //         ReactDOM.render(React.createElement(Welcome), document.getElementById('root'));
+        //     </script>
+        // </body>
+        // </html>`;
+        // panel.webview.html=fileContent;
         // panel.webview.html=fileContent;
     //     panel.webview.html = `
     //     <html>
@@ -65,6 +85,7 @@ export function activate(context: vscode.ExtensionContext) {
         `;
     });
     context.subscriptions.push(disposableHello);
+    webview(context);
 }
 
 export function deactivate() {}

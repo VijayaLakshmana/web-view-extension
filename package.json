@@ -28,6 +28,10 @@
       {
         "command": "extension.openBusApp",
         "title": "start app"
+     },
+     {
+      "command": "extension.openApp",
+      "title":"mark"
      }
     ]
   },
@@ -57,6 +61,7 @@
     "@types/react": "^18.3.2",
     "react": "^18.3.1",
     "react-app": "file:/home/vijaymuthu/Desktop/React",
+    "web-app": "file:/home/vijaymuthu/ticketbooking",
     "react-dom": "^18.3.1"
   }
 }

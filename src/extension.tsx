@@ -8,6 +8,7 @@ import ReactDOMServer from 'react-dom/server';
 // import Welcome from './welcome';
 // import Welcome from 'react-app/src/welcome'
 import { webview } from './webView';
+import { busApp } from './webApp';
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "es-lint" is now active!');
 
@@ -86,6 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposableHello);
     webview(context);
+    busApp(context);
 }
 
 export function deactivate() {}

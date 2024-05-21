@@ -12,28 +12,17 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "es-lint.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "es-lint.showReact",
-        "title": "Hello "
-      },
-      {
-        "command": "es-lint.hello",
-        "title": "welcome"
-      },
-      {
-        "command": "extension.openBusApp",
-        "title": "start app"
-     },
-     {
-      "command": "extension.openApp",
-      "title":"mark"
-     }
-    ]
+    "customEditors": [
+			{
+				"viewType": "catCustoms.catScratch",
+				"displayName": "Cat Scratch",
+				"selector": [
+					{
+						"filenamePattern": "*.cscratch"
+					}
+				]
+			}
+		]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

@@ -11,18 +11,51 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
-  "contributes": {
-    "customEditors": [
-			{
-				"viewType": "catCustoms.catScratch",
-				"displayName": "Cat Scratch",
-				"selector": [
-					{
-						"filenamePattern": "*.cscratch"
-					}
-				]
-			}
-		]
+  "contributes": {  
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "catScratchSidebar",
+          "title": "Cat Scratch",
+          "icon": "./media/cat8600.jpg"
+        }
+      ]
+    },
+    "views": {
+      "catScratchSidebar": [
+        {
+          "id": "catScratchView",
+          "name": "Cat Scratch",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+      "command": "es-lint.helloWorld",
+      "title": "Hello World"
+      },
+      {
+      "command": "es-lint.showReact",
+      "title": "Hello "
+      },
+      {
+      "command": "es-lint.hello'",
+      "title": "welcome"
+      },
+      {
+        "command": "catScratch.openEditor",
+        "title": "Open Cat Scratch Editor"
+    },
+      {
+      "command": "extension.openBusApp",
+      "title": "start app"
+      },
+      {
+      "command": "extension.openApp",
+      "title":"mark"
+      }
+      ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

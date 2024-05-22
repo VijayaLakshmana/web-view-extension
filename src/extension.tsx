@@ -70,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
             'My Component',
             vscode.ViewColumn.One,
             {
-                enableScripts: true 
+                enableScripts: true ,
             }
         );
         //bundle.js
@@ -87,9 +87,74 @@ export function activate(context: vscode.ExtensionContext) {
         `;
     });
     context.subscriptions.push(disposableHello);
+    // const myViewProvider = vscode.window.registerWebviewViewProvider('myView', {
+    //     resolveWebviewView(webviewView, context, token) {
+    //         vscode.commands.executeCommand('es-lint.hello');
+    //     }
+    // });
+
+    
+    // context.subscriptions.push(myViewProvider);
+
     webview(context);
     busApp(context);
+
+    // context.subscriptions.push(CatScratchEditorProvider.register(context));
+
+
+
     context.subscriptions.push(CatScratchEditorProvider.register(context));
+
+    // Create and open the custom editor panel when the extension is activated
+    const panel = vscode.window.createWebviewPanel(
+        CatScratchEditorProvider.viewType,
+        'Cat Scratch Editor',
+        vscode.ViewColumn.One,
+        {
+            enableScripts: true
+        }
+    );
+
+    // Create an empty scratch document
+    const emptyDocument = vscode.workspace.openTextDocument({
+        language: 'json',
+        content: JSON.stringify({ scratches: [] }, null, 2)
+    });
+
+    // Resolve the custom editor in the created webview panel
+    const editorProvider = new CatScratchEditorProvider(context);
+    emptyDocument.then(document => {
+        editorProvider.resolveCustomTextEditor(document, panel);
+    });
+
+    // Register the webview view provider for the sidebar
+    context.subscriptions.push(
+        vscode.window.registerWebviewViewProvider('catScratchView', {
+            resolveWebviewView(webviewView) {
+                webviewView.webview.options = {
+                    enableScripts: true
+                };
+                webviewView.webview.html = getWebviewContent();
+            }
+        })
+    );
+}
+
+function getWebviewContent(): string {
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Cat Scratch</title>
+        </head>
+        <body>
+            <!-- Add any content you want to display in the sidebar view -->
+        </body>
+        </html>
+    `;
+
 }
 
 export function deactivate() {}

@@ -87,15 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
         `;
     });
     context.subscriptions.push(disposableHello);
-    // const myViewProvider = vscode.window.registerWebviewViewProvider('myView', {
-    //     resolveWebviewView(webviewView, context, token) {
-    //         vscode.commands.executeCommand('es-lint.hello');
-    //     }
-    // });
-
-    
-    // context.subscriptions.push(myViewProvider);
-
+  
     webview(context);
     busApp(context);
 
@@ -103,59 +95,115 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 
-    context.subscriptions.push(CatScratchEditorProvider.register(context));
 
-    // Create and open the custom editor panel when the extension is activated
-    const panel = vscode.window.createWebviewPanel(
-        CatScratchEditorProvider.viewType,
-        'Cat Scratch Editor',
-        vscode.ViewColumn.One,
-        {
-            enableScripts: true
-        }
-    );
+//By Clicking icon show the button and clicking that button open the custom editor
 
-    // Create an empty scratch document
-    const emptyDocument = vscode.workspace.openTextDocument({
-        language: 'json',
-        content: JSON.stringify({ scratches: [] }, null, 2)
-    });
+//     context.subscriptions.push(CatScratchEditorProvider.register(context));
 
-    // Resolve the custom editor in the created webview panel
-    const editorProvider = new CatScratchEditorProvider(context);
-    emptyDocument.then(document => {
-        editorProvider.resolveCustomTextEditor(document, panel);
-    });
+//     // Create and open the custom editor panel when the extension is activated
+//     const openEditorCommand = vscode.commands.registerCommand('catScratch.openEditor', async () => {
+//     const panel = vscode.window.createWebviewPanel(
+//         CatScratchEditorProvider.viewType,
+//         'Cat Scratch Editor',
+//         vscode.ViewColumn.One,
+//         {
+//             enableScripts: true
+//         }
+//     );
+
+
+//     // Create an empty scratch document
+//     const emptyDocument = vscode.workspace.openTextDocument({
+//         language: 'json',
+//         content: JSON.stringify({ scratches: [] }, null, 2)
+//     });
+
+//     // Resolve the custom editor in the created webview panel   
+//     const editorProvider = new CatScratchEditorProvider(context);
+//     emptyDocument.then(document => {
+//         editorProvider.resolveCustomTextEditor(document, panel);
+//     });
+// });
+// context.subscriptions.push(openEditorCommand);
+
+//     // Register the webview view provider for the sidebar
+//     context.subscriptions.push(
+//         vscode.window.registerWebviewViewProvider('catScratchView', {
+//             resolveWebviewView(webviewView) {
+//                 webviewView.webview.options = {
+//                     enableScripts: true
+//                 };
+//                 webviewView.webview.html = getWebviewContent();
+//                 webviewView.webview.onDidReceiveMessage(message => {
+//                     if (message.command === 'openEditor') {
+//                         vscode.commands.executeCommand('catScratch.openEditor');
+//                     }
+//                 });
+//             }
+//         })
+//     );
+
+
+
+
+
+//By Clicking icon open the custom Editor
 
     // Register the webview view provider for the sidebar
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider('catScratchView', {
-            resolveWebviewView(webviewView) {
-                webviewView.webview.options = {
-                    enableScripts: true
-                };
-                webviewView.webview.html = getWebviewContent();
+            async resolveWebviewView(webviewView) {
+                // Create an empty scratch document
+                const emptyDocument = await vscode.workspace.openTextDocument({
+                    language: 'json',
+                    content: JSON.stringify({ scratches: [] }, null, 2)
+                });
+
+                // Create and open the custom editor panel
+                const panel = vscode.window.createWebviewPanel(
+                    CatScratchEditorProvider.viewType,
+                    'Cat Scratch Editor',
+                    vscode.ViewColumn.One,
+                    {
+                        enableScripts: true
+                    }
+                );
+
+                // Resolve the custom editor in the created webview panel
+                const editorProvider = new CatScratchEditorProvider(context);
+                editorProvider.resolveCustomTextEditor(emptyDocument, panel);
             }
         })
     );
-}
-
-function getWebviewContent(): string {
-    return `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Cat Scratch</title>
-        </head>
-        <body>
-            <!-- Add any content you want to display in the sidebar view -->
-        </body>
-        </html>
-    `;
 
 }
+
+
+
+
+
+// function getWebviewContent(): string {
+//     return `
+//         <!DOCTYPE html>
+//         <html lang="en">
+//         <head>
+//             <meta charset="UTF-8">
+//             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//             <title>Cat Scratch</title>
+//         </head>
+//         <body>
+//         <button id="openEditor">Open Cat Scratch Editor</button>
+//         <script>
+//             const vscode = acquireVsCodeApi();
+//             document.getElementById('openEditor').addEventListener('click', () => {
+//                 vscode.postMessage({ command: 'openEditor' });
+//             });
+//         </script>
+//         </body>
+//         </html>
+//     `;
+
+// }
 
 export function deactivate() {}
 

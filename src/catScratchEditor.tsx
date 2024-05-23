@@ -167,16 +167,12 @@
 	// 	}
 	// }
 
+
+	
 	import * as vscode from 'vscode';
 	import { getNonce } from './util';
 	
 	export class CatScratchEditorProvider implements vscode.CustomTextEditorProvider {
-	
-		public static register(context: vscode.ExtensionContext): vscode.Disposable {
-			const provider = new CatScratchEditorProvider(context);
-			const providerRegistration = vscode.window.registerCustomEditorProvider(CatScratchEditorProvider.viewType, provider);
-			return providerRegistration;
-		}
 	
 		public static readonly viewType = 'catCustoms.catScratch';
 	

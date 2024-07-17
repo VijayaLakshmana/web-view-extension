@@ -12,149 +12,19 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "catScratchSidebar",
-          "title": "Cat Scratch",
-          "icon": "./media/cat8600.jpg"
-        },
-        {
-          "id": "myCustomSidebar",
-          "title": "My Sidebar",
-          "icon": "./media/perd.jpg"
-        },
-        {
-          "id": "myExtension",
-          "title": "My Extension",
-          "icon": "./media/per.jpg"
-      }
-      ]
-    },
-    "views": {
-      "catScratchSidebar": [
-        {
-          "id": "catScratchView",
-          "name": "Cat Scratch",
-          "type": "webview"
-        }
-      ],
-      "explorer": [
-				{
-					"type": "webview",
-					"id": "calicoColors.colorsView",
-					"name": "Calico Colors"
-				}
-			],
-      "myExtension": [
-        {
-          "id": "extension.myWebview",
-          "name": "My Webview",
-          "type": "webview"
-        }
-    ]
-    },
     "commands": [
       {
-        "command": "es-lint.helloWorld",
+        "command": "es-lint.showWebview",
         "title": "Hello World"
-      },
-        {
-            "command": "extension.showWebview",
-            "title": "Show My Webview",
-            "icon": {
-                "light": "./media/sand.jpg",
-                "dark": "./media/sand-dark.jpg"
-            }
-        },
-      {
-				"command": "calicoColors.addColor",
-				"category": "Calico Colors",
-				"title": "Add Color"
-			},
-      {
-        "command": "extension.appWebview",
-        "title": "got"
-
-      },
-			{
-				"command": "calicoColors.clearColors",
-				"category": "Calico Colors",
-				"title": "Clear Colors",
-				"icon": "$(clear-all)"
-			},
-      {
-        "command": "extension.showAudioPlayer",
-        "title": "audio"
-      },
-      {
-        "command": "busApp.openCustomEditor",
-        "title": "Open Custom Editor"
-      },
-      {
-        "command": "extension.showMicrophone",
-        "title": "micro phone"
-      },
-      {
-        "command": "extension.openApp",
-        "title": "Open App"
-      },
-      {
-        "command": "extension.showReactApp",
-        "title": "Open game"
-      },
-      {
-        "command": "extension.startRecording",
-        "title": "Start Recording"
-      },
-      {
-        "command": "extension.stopRecording",
-        "title": "Stop Recording"
-      },
-      {
-        "command": "es-lint.hello",
-        "title": "welcome"
-      },
-      {
-        "command": "catScratch.openEditor",
-        "title": "Open Cat Scratch Editor"
-      },
-      {
-        "command": "extension.openBusApp",
-        "title": "start app"
-      },
-      {
-        "command": "extension.openedApp",
-        "title": "mark"
-      }
-    ],
-    "customEditors": [
-      {
-          "viewType": "busApp.customEditor",
-          "displayName": "Bus App",
-          "selector": [
-              {
-                  "filenamePattern": "*.busapp"
-              }
-          ]
-      }
-  ],
-  "menus": {
-    "view/title": [
-      {
-        "command": "calicoColors.clearColors",
-        "group": "navigation",
-        "when": "view == calicoColors.colorsView"
       }
     ]
-  }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
-    "prepare": "npm install --prefix node_modules/react-app && npm run build --prefix node_modules/react-app",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "prepare": "npm install --prefix node_modules/react-web-view && npm run build --prefix node_modules/react-web-view",
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
@@ -174,12 +44,12 @@
   },
   "dependencies": {
     "@types/react": "^18.3.2",
+    "axios": "^1.7.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.2.0",
     "node-record-lpcm16": "^1.0.1",
     "react": "^18.3.1",
-    "react-app": "file:/home/vijaymuthu/Desktop/React",
     "react-dom": "^18.3.1",
-    "web-app": "file:/home/vijaymuthu/ticketbooking"
-  }
+    "react-web-view": "file:/home/vijaymuthu/Desktop/Bus_Booking"
+  } 
 }
